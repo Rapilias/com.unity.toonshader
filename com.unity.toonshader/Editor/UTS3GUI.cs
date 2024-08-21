@@ -1,4 +1,4 @@
-﻿//#define USE_SIMPLE_UI
+//#define USE_SIMPLE_UI
 
 
 using System;
@@ -316,6 +316,9 @@ namespace UnityEditor.Rendering.Toon
             SceneLight = 1 << 12,
             EnvironmentalLightEffectiveness = 1 << 13,
             MetaverseSettings = 1 << 14,
+// EgoParadise.Begin
+            Dithering = 1 << 15,
+// EgoParadise.End
         }
 
         // variables which must be gotten from shader at the beggning of GUI
@@ -892,6 +895,9 @@ namespace UnityEditor.Rendering.Toon
         void OnOpenGUI(Material material, MaterialEditor materialEditor, MaterialProperty[] props)
         {
             m_MaterialScopeList.RegisterHeaderScope(Styles.shaderFoldout, Expandable.Shader, DrawShaderOptions, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation:0);
+// EgoParadise.Begin
+            m_MaterialScopeList.RegisterHeaderScope(ditheringFoldout, Expandable.Dithering, GUI_Dithering, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
+// EgoParadise.End
             m_MaterialScopeList.RegisterHeaderScope(Styles.basicColorFoldout, Expandable.Basic, GUI_BasicThreeColors, (uint)UTS_Mode.ThreeColorToon,(uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.shadingStepAndFeatherFoldout, Expandable.ShadingStepAndFeather, GUI_StepAndFeather, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
             m_MaterialScopeList.RegisterHeaderScope(Styles.normalMapFoldout, Expandable.NormalMap, GUI_NormalmapSettings, (uint)UTS_Mode.ThreeColorToon, (uint)UTS_TransparentMode.Off, isTessellation: 0);
@@ -2389,6 +2395,46 @@ namespace UnityEditor.Rendering.Toon
             EditorGUI.showMixedValue = false;
         }
 
+// EgoParadise Begin
+        public static readonly GUIContent ditheringFoldout = EditorGUIUtility.TrTextContent("Enable Dithering", "Enable Dithering.");
+        
+        internal const string ShaderPropsIS_DITHERING = "_Is_Dithering";
+        
+        private static readonly RangeProperty DitherNearCutoutDistanceRangePropText = new RangeProperty(
+            label: "Dither Near Cutout Distance", 
+            tooltip: "ディザリングで完全に透過される距離",
+            propName: "_DitherNearCutoutDistance",  defaultValue: 0.5f, min: 0.0f, max: 10.0f);
+        private static readonly RangeProperty DitherNearFadeStartDistanceRangePropText = new RangeProperty(
+            label: "Dither Near Fade Start Distance", 
+            tooltip: "ディザリングが開始される距離",
+            propName: "_DitherNearFadeStartDistance",  defaultValue: 1.5f, min: 0.0f, max: 50.0f);
+        private static readonly RangeProperty DitherPowerRangePropText = new RangeProperty(
+            label: "Dither Power", 
+            tooltip: "ディザリングの強さ",
+            propName: "_DitherPower",  defaultValue: 1.0f, min: 0.0f, max: 1.0f);
+        private static readonly RangeProperty DitherScaleRangePropText = new RangeProperty(
+            label: "Dither Scale", 
+            tooltip: "ディザリングのピクセルサイズ倍率",
+            propName: "_DitherScale",  defaultValue: 1.0f, min: 0.0001f, max: 10.0f);
+
+        
+        public void GUI_Dithering(Material material)
+        {
+            EditorGUI.indentLevel++;
+            var isEnable = GUI_Toggle(material, ditheringFoldout, ShaderPropsIS_DITHERING, MaterialGetInt(material, ShaderPropsIS_DITHERING) != 0);
+            // EditorGUI.BeginDisabledGroup(!isEnable);
+            GUI_RangeProperty(material, DitherNearCutoutDistanceRangePropText);
+            GUI_RangeProperty(material, DitherNearFadeStartDistanceRangePropText);
+            GUI_RangeProperty(material, DitherPowerRangePropText);
+            GUI_RangeProperty(material, DitherScaleRangePropText);
+            // EditorGUI.EndDisabledGroup();
+            EditorGUI.indentLevel--;
+        }
+        public void ApplyDithering()
+        {
+
+        }
+// EgoParadise End
 
     } 
 
