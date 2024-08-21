@@ -564,6 +564,20 @@
 #endif
             )
             {
+
+// EgoParadise Begin
+                float dither = 0;
+                if(_Is_Dithering)
+                {
+                    float cameraDistance = distance(i.posWorld, _WorldSpaceCameraPos.xyz);
+                    // 0 < _DitherNearCutoutDistance < _DitherNearFadeStartDistance
+                    float ditherInput = saturate((cameraDistance - _DitherNearCutoutDistance) / _DitherNearFadeStartDistance * _DitherPower) * 2;
+
+                    Dither4x4float(i.pos, _DitherScale, ditherInput, dither);
+                    clip(dither);
+                }
+// EgoParadise End
+
 #if defined(_SHADINGGRADEMAP)
                     fragShadingGradeMap(i, facing, finalRGBA
                         #ifdef _WRITE_RENDERING_LAYERS
@@ -577,5 +591,12 @@
                         #endif
                     );
 #endif
+
+// EgoParadise Begin
+                if(_Is_Dithering)
+                {
+                    finalRGBA.a *= dither;
+                }
+// EgoParadise End
 
             }

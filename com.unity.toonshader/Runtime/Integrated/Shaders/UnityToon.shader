@@ -45,10 +45,13 @@ Shader "Toon" {
 
         [Enum(OFF,0,FRONT,1,BACK,2)] _CullMode("Cull Mode", int) = 2  //OFF/FRONT/BACK
 
-
-
-
-
+// EgoParadise Begin
+        _Is_Dithering ("_Is_Dithering", int) = 1
+        _DitherNearCutoutDistance ("_DitherNearCutoutDistance", Float) = 0.5
+        _DitherNearFadeStartDistance ("_DitherNearFadeStartDistance", Float) = 1.5
+        _DitherPower ("_DitherPower", Float) = 1
+        _DitherScale ("_DitherScale", Float) = 1
+// EgoParadise End
 
         _MainTex ("BaseMap", 2D) = "white" {}
         _BaseMap ("BaseMap", 2D) = "white" {}
