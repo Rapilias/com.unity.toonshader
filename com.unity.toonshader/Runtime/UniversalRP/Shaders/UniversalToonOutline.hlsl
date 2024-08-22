@@ -2,6 +2,9 @@
 //nobuyuki@unity3d.com
 //toshiyuki@unity3d.com (Universal RP/HDRP) 
 
+// EgoParadise Begin
+#include "../../UniversalRP/Shaders/EgoPradise.URP.Core.hlsl"
+// EgoParadise End
 
             uniform float4 _LightColor0; // this is not set in c# code ?
 
@@ -19,6 +22,9 @@
                 float3 normalDir : TEXCOORD1;
                 float3 tangentDir : TEXCOORD2;
                 float3 bitangentDir : TEXCOORD3;
+// EgoParadise Begin
+                float4 positionWS : TEXCOORD4;
+// EgoParadise End
 
                 UNITY_VERTEX_OUTPUT_STEREO
             };
@@ -56,17 +62,28 @@
 //v2.0.4
 #ifdef _OUTLINE_NML
                 //v.2.0.4.3 baked Normal Texture for Outline
-                o.pos = UnityObjectToClipPos(lerp(float4(v.vertex.xyz + v.normal*Set_Outline_Width,1), float4(v.vertex.xyz + _BakedNormalDir*Set_Outline_Width,1),_Is_BakedNormal));
+                // EgoParadise Begin
+                float4 outlinePositionWS = lerp(float4(v.vertex.xyz + v.normal*Set_Outline_Width,1), float4(v.vertex.xyz + _BakedNormalDir*Set_Outline_Width,1),_Is_BakedNormal);
+                o.positionWS = outlinePositionWS;
+                o.pos = UnityObjectToClipPos(outlinePositionWS);
+                // EgoParadise End
 #elif _OUTLINE_POS
                 Set_Outline_Width = Set_Outline_Width*2;
                 float signVar = dot(normalize(v.vertex.xyz),normalize(v.normal))<0 ? -1 : 1;
-                o.pos = UnityObjectToClipPos(float4(v.vertex.xyz + signVar*normalize(v.vertex)*Set_Outline_Width, 1));
+                // EgoParadise Begin
+                float4 outlinePositionWS = float4(v.vertex.xyz + signVar*normalize(v.vertex)*Set_Outline_Width, 1);
+                o.positionWS = outlinePositionWS;
+                o.pos = UnityObjectToClipPos(outlinePositionWS);
+                // EgoParadise End
 #endif
                 //v.2.0.7.5
                 o.pos.z = o.pos.z + _Offset_Z * _ClipCameraPos.z;
                 return o;
             }
             float4 frag(VertexOutput i) : SV_Target{
+// EgoParadise Begin
+                TryDitherClip(i.positionWS, i.pos);
+// EgoParadise End
                 //v.2.0.5
                 if (_ZOverDrawMode > 0.99f)
                 {

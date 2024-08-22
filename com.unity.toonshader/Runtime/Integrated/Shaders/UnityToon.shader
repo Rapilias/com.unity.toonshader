@@ -1373,7 +1373,10 @@ Shader "Toon" {
 
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+// EgoParadise Begin
+            // #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+            #include "../../UniversalRP/Shaders/EgoParadise.URP.DepthOnly.hlsl"
+// EgoParadise End
             ENDHLSL
         }
         // This pass is used when drawing to a _CameraNormalsTexture texture
@@ -1413,7 +1416,10 @@ Shader "Toon" {
         #endif
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthNormalsPass.hlsl"
+// EgoParadise Begin
+            // #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthNormalsPass.hlsl"
+            #include "../../UniversalRP/Shaders/EgoParadise.URP.DepthNormals.hlsl"
+// EgoParadise End
 
             ENDHLSL
         }

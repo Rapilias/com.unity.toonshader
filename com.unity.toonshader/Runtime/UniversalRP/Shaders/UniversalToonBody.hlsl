@@ -3,7 +3,9 @@
 //toshiyuki@unity3d.com (Universal RP/HDRP) 
 
 #if (SHADER_LIBRARY_VERSION_MAJOR ==7 && SHADER_LIBRARY_VERSION_MINOR >= 3) || (SHADER_LIBRARY_VERSION_MAJOR >= 8)
-
+// EgoParadise Begin
+#include "../../UniversalRP/Shaders/EgoPradise.URP.Core.hlsl"
+// EgoParadise End
 
 # ifdef _ADDITIONAL_LIGHTS
 #  ifndef  REQUIRES_WORLD_SPACE_POS_INTERPOLATOR
@@ -52,7 +54,6 @@
 #endif
 
              
-
 
 // RaytracedHardShadow
 // This is global texture.  what to do with SRP Batcher.
@@ -564,23 +565,7 @@
 #endif
             )
             {
-
-// EgoParadise Begin
-                float dither = 0.;
-                if(_Is_Dithering)
-                {
-                    float cameraDistance = distance(i.posWorld, _WorldSpaceCameraPos.xyz);
-                    // 0 < _DitherNearCutoutDistance < この間でディザリング < _DitherNearFadeStartDistance
-                    float min = _DitherNearCutoutDistance;
-                    float minToMaxDistance = _DitherNearFadeStartDistance - _DitherNearCutoutDistance;
-                    float ditherInput = saturate((cameraDistance - min) / minToMaxDistance * _DitherPower);
-                    float ditherOutput;
-                    Dither4x4float(i.pos, _DitherScale, ditherOutput);
-                    dither = ditherInput - (1.0f - ditherOutput);
-                    clip(dither);
-                }
-// EgoParadise End
-
+                TryDitherClip(i.posWorld, i.pos);
 #if defined(_SHADINGGRADEMAP)
                     fragShadingGradeMap(i, facing, finalRGBA
                         #ifdef _WRITE_RENDERING_LAYERS
@@ -594,11 +579,5 @@
                         #endif
                     );
 #endif
-// EgoParadise Begin
-                if(_Is_Dithering)
-                {
-                    finalRGBA.a = dither <= 0 ? 0 : finalRGBA.a;
-                }
-// EgoParadise End
 
             }

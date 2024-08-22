@@ -4,9 +4,6 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
-// EgoParadise Begin
-#include "./EgoPradise.URP.Core.hlsl"
-// EgoParadise End
 
 #define fixed  half
 #define fixed3 half3
