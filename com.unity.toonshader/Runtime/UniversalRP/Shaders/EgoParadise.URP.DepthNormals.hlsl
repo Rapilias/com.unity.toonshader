@@ -23,9 +23,9 @@ struct Varyings
     float4 positionCS   : SV_POSITION;
     #if defined(_ALPHATEST_ON)
         float2 uv       : TEXCOORD1;
+        float4 positionWS   : TEXCOORD3;
     #endif
     float3 normalWS     : TEXCOORD2;
-    float4 positionWS   : TEXCOORD3;
 
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO

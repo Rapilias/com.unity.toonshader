@@ -18,10 +18,10 @@ struct Attributes
 struct Varyings
 {
     #if defined(_ALPHATEST_ON)
-    float2 uv       : TEXCOORD0;
+        float2 uv       : TEXCOORD0;
+        float4 positionWS   : TEXCOORD1;
     #endif
     float4 positionCS   : SV_POSITION;
-    float4 positionWS   : TEXCOORD1;
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
 };
