@@ -4,9 +4,6 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
-// EgoParadise Begin
-#include "./EgoPradise.URP.Core.hlsl"
-// EgoParadise End
 
 #define fixed  half
 #define fixed3 half3
@@ -187,13 +184,6 @@ half _BumpScale;
 half _OcclusionStrength;
 half _Surface;
 
-// EgoParadise Begin
-half _DitherNearCutoutDistance;
-half _DitherNearFadeStartDistance;
-half _DitherPower;
-half _DitherScale;
-fixed _Is_Dithering;
-// EgoParadise End
 
 CBUFFER_END
 
