@@ -35,9 +35,6 @@
 
 
 
-
-
-
 #if defined(UNITY_PASS_PREPASSBASE) || defined(UNITY_PASS_DEFERRED) || defined(UNITY_PASS_SHADOWCASTER)
 #undef FOG_LINEAR
 #undef FOG_EXP

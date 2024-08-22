@@ -1129,7 +1129,6 @@ namespace UnityEditor.Rendering.Toon
             ApplyQueueAndRenderType(m_WorkflowMode, material);
 
 
-
             if (EditorGUI.EndChangeCheck())
             {
                 m_MaterialEditor.PropertiesChanged();
@@ -2429,10 +2428,6 @@ namespace UnityEditor.Rendering.Toon
             GUI_RangeProperty(material, DitherScaleRangePropText);
             // EditorGUI.EndDisabledGroup();
             EditorGUI.indentLevel--;
-        }
-        public void ApplyDithering()
-        {
-
         }
 // EgoParadise End
 

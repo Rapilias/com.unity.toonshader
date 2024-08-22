@@ -599,5 +599,6 @@
                 {
                     finalRGBA.a = dither <= 0 ? 0 : finalRGBA.a;
                 }
+// EgoParadise End
 
             }
