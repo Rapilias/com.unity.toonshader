@@ -184,6 +184,13 @@ half _BumpScale;
 half _OcclusionStrength;
 half _Surface;
 
+// EgoParadise Begin
+half _DitherNearCutoutDistance;
+half _DitherNearFadeStartDistance;
+half _DitherPower;
+half _DitherScale;
+fixed _Is_Dithering;
+// EgoParadise End
 
 CBUFFER_END
 

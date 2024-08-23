@@ -45,10 +45,13 @@ Shader "Toon" {
 
         [Enum(OFF,0,FRONT,1,BACK,2)] _CullMode("Cull Mode", int) = 2  //OFF/FRONT/BACK
 
-
-
-
-
+// EgoParadise Begin
+        _Is_Dithering ("_Is_Dithering", int) = 1
+        _DitherNearCutoutDistance ("_DitherNearCutoutDistance", Float) = 0.5
+        _DitherNearFadeStartDistance ("_DitherNearFadeStartDistance", Float) = 1.5
+        _DitherPower ("_DitherPower", Float) = 1
+        _DitherScale ("_DitherScale", Float) = 1
+// EgoParadise End
 
         _MainTex ("BaseMap", 2D) = "white" {}
         _BaseMap ("BaseMap", 2D) = "white" {}
@@ -1216,6 +1219,9 @@ Shader "Toon" {
             #pragma multi_compile _ LIGHTMAP_ON
             #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             #pragma multi_compile_fog
+// EgoParadise Begin
+            #pragma multi_compile _ _DITHERING_ON
+// EgoParadise End
 
             //--------------------------------------
             // GPU Instancing
@@ -1358,7 +1364,9 @@ Shader "Toon" {
             // -------------------------------------
             // Material Keywords
             #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-
+// EgoParadise Begin
+            #pragma multi_compile _ _DITHERING_ON
+// EgoParadise End
             //--------------------------------------
             // GPU Instancing
             #pragma multi_compile_instancing
@@ -1370,7 +1378,10 @@ Shader "Toon" {
 
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+// EgoParadise Begin
+            // #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+            #include "../../UniversalRP/Shaders/EgoParadise.URP.DepthOnly.hlsl"
+// EgoParadise End
             ENDHLSL
         }
         // This pass is used when drawing to a _CameraNormalsTexture texture
@@ -1398,7 +1409,9 @@ Shader "Toon" {
             // Material Keywords
             #pragma shader_feature_local _PARALLAXMAP
             #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-
+// EgoParadise Begin
+            #pragma multi_compile _ _DITHERING_ON
+// EgoParadise End
 
             //--------------------------------------
             // GPU Instancing
@@ -1410,7 +1423,10 @@ Shader "Toon" {
         #endif
 
             #include "../../UniversalRP/Shaders/UniversalToonInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthNormalsPass.hlsl"
+// EgoParadise Begin
+            // #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthNormalsPass.hlsl"
+            #include "../../UniversalRP/Shaders/EgoParadise.URP.DepthNormals.hlsl"
+// EgoParadise End
 
             ENDHLSL
         }
