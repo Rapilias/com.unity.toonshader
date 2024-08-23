@@ -1220,7 +1220,7 @@ Shader "Toon" {
             #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             #pragma multi_compile_fog
 // EgoParadise Begin
-            #pragma multi_compile _ _ALPHATEST_ON
+            #pragma multi_compile _ _DITHERING_ON
 // EgoParadise End
 
             //--------------------------------------
@@ -1365,7 +1365,7 @@ Shader "Toon" {
             // Material Keywords
             #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 // EgoParadise Begin
-            #pragma multi_compile _ _ALPHATEST_ON
+            #pragma multi_compile _ _DITHERING_ON
 // EgoParadise End
             //--------------------------------------
             // GPU Instancing
@@ -1410,7 +1410,7 @@ Shader "Toon" {
             #pragma shader_feature_local _PARALLAXMAP
             #pragma shader_feature_local _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 // EgoParadise Begin
-            #pragma multi_compile _ _ALPHATEST_ON
+            #pragma multi_compile _ _DITHERING_ON
 // EgoParadise End
 
             //--------------------------------------

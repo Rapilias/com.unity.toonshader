@@ -1127,7 +1127,9 @@ namespace UnityEditor.Rendering.Toon
             ApplyTessellation(material);
             ApplyMatCapMode(material);
             ApplyQueueAndRenderType(m_WorkflowMode, material);
-
+// EgoParadise.Begin
+            ApplyDithering(material);
+// EgoParadise.End
 
             if (EditorGUI.EndChangeCheck())
             {
@@ -2397,6 +2399,7 @@ namespace UnityEditor.Rendering.Toon
 // EgoParadise Begin
         public static readonly GUIContent ditheringFoldout = EditorGUIUtility.TrTextContent("Enable Dithering", "Enable Dithering.");
         
+        public const string ShaderKeyward_DITHERING = "_DITHERING_ON"; 
         internal const string ShaderPropsIS_DITHERING = "_Is_Dithering";
         
         private static readonly RangeProperty DitherNearCutoutDistanceRangePropText = new RangeProperty(
@@ -2428,6 +2431,19 @@ namespace UnityEditor.Rendering.Toon
             GUI_RangeProperty(material, DitherScaleRangePropText);
             // EditorGUI.EndDisabledGroup();
             EditorGUI.indentLevel--;
+        }
+        
+        public void ApplyDithering(Material material)
+        {
+            var isEnable = MaterialGetInt(material, ShaderPropsIS_DITHERING);
+            if (isEnable == 0)
+            {
+                material.DisableKeyword(ShaderKeyward_DITHERING);
+            }
+            else
+            {
+                material.EnableKeyword(ShaderKeyward_DITHERING);
+            }
         }
 // EgoParadise End
 
