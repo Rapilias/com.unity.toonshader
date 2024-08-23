@@ -1,4 +1,4 @@
-#ifndef EGOPARADISE_URP_DEPTH_NORMALS_INCLUDED
+﻿#ifndef EGOPARADISE_URP_DEPTH_NORMALS_INCLUDED
 #define EGOPARADISE_URP_DEPTH_NORMALS_INCLUDED
 
 #include "./EgoPradise.URP.Core.hlsl"
@@ -39,12 +39,12 @@ Varyings DepthNormalsVertex(Attributes input)
     UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
     #if defined(_DITHERING_ON)
+        output.positionWS = float4(TransformObjectToWorld(input.positionOS).xyz, 0);
         output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
+        VertexNormalInputs normalInput = GetVertexNormalInputs(input.normal, input.tangentOS);
+        output.normalWS = NormalizeNormalPerVertex(normalInput.normalWS);
     #endif
     output.positionCS = TransformObjectToHClip(input.positionOS.xyz);
-
-    VertexNormalInputs normalInput = GetVertexNormalInputs(input.normal, input.tangentOS);
-    output.normalWS = NormalizeNormalPerVertex(normalInput.normalWS);
 
     return output;
 }

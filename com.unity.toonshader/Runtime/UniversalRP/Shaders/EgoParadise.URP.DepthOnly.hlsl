@@ -1,4 +1,4 @@
-#ifndef EGOPARADISE_URP_DEPTHONLY_INCLUDED
+﻿#ifndef EGOPARADISE_URP_DEPTHONLY_INCLUDED
 #define EGOPARADISE_URP_DEPTHONLY_INCLUDED
 
 #include "./EgoPradise.URP.Core.hlsl"
@@ -35,9 +35,9 @@ Varyings DepthOnlyVertex(Attributes input)
 
     #if defined(_DITHERING_ON)
     output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
+    output.positionWS = float4(TransformObjectToWorld(input.positionOS).xyz, 0);
     #endif
     output.positionCS = TransformObjectToHClip(input.position.xyz);
-    output.positionWS = mul(unity_ObjectToWorld, input.position);
     return output;
 }
 
