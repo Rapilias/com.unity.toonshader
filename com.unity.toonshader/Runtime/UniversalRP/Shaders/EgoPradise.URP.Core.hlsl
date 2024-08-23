@@ -28,8 +28,6 @@ float CreateDitherInputByCameraDistance(float4 positionWS)
 
 float TryDitherClip(float4 positionWS, float4 positionCS)
 {
-    if(!_Is_Dithering)
-        return 1;
     float alpha = CreateDitherInputByCameraDistance(positionWS);
     float ditherOutput = Dither4x4float(positionCS);
     float dither = alpha - (1.0f - ditherOutput);

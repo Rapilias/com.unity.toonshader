@@ -1,4 +1,4 @@
-﻿#ifndef EGOPARADISE_URP_DEPTH_NORMALS_INCLUDED
+#ifndef EGOPARADISE_URP_DEPTH_NORMALS_INCLUDED
 #define EGOPARADISE_URP_DEPTH_NORMALS_INCLUDED
 
 #include "./EgoPradise.URP.Core.hlsl"
@@ -21,7 +21,7 @@ struct Attributes
 struct Varyings
 {
     float4 positionCS   : SV_POSITION;
-    #if defined(_ALPHATEST_ON)
+    #if defined(_DITHERING_ON)
         float2 uv       : TEXCOORD1;
         float4 positionWS   : TEXCOORD3;
     #endif
@@ -38,7 +38,7 @@ Varyings DepthNormalsVertex(Attributes input)
     UNITY_TRANSFER_INSTANCE_ID(input, output);
     UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-    #if defined(_ALPHATEST_ON)
+    #if defined(_DITHERING_ON)
         output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
     #endif
     output.positionCS = TransformObjectToHClip(input.positionOS.xyz);
@@ -60,7 +60,7 @@ void DepthNormalsFragment(
     UNITY_SETUP_INSTANCE_ID(input);
     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
 
-    #if defined(_ALPHATEST_ON)
+    #if defined(_DITHERING_ON)
         TryDitherClip(input.positionWS, input.positionCS);
         Alpha(SampleAlbedoAlpha(input.uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap)).a, _BaseColor, _Cutoff);
     #endif
