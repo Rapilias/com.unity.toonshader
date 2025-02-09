@@ -1,10 +1,10 @@
 yamato_name: uts2
 test_editors:
-  - version: 2020.3
+  - version: 2021.3
 test_platforms:
   - name: win
     type: Unity::VM
-    image: package-ci/win10:stable
+    image: package-ci/win10:v4
     flavor: b1.large
 ---
 {% for editor in test_editors %}
@@ -33,7 +33,7 @@ promote:
   name: Promote {{ yamato_name }} to Production
   agent:
     type: Unity::VM
-    image: package-ci/win10:stable
+    image: package-ci/win10:v4
     flavor: b1.large
   variables:
     UPMCI_PROMOTION: 1
