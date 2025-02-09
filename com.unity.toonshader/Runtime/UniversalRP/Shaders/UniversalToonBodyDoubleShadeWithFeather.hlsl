@@ -55,7 +55,7 @@
 #  endif
 
 #  ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
-                input.shadowCoord = i.shadowCoord;
+                input.shadowCoord = GetShadowCoord(i.posWorld, i.positionCS);
 #  endif
 
 #  ifdef REQUIRES_WORLD_SPACE_POS_INTERPOLATOR
