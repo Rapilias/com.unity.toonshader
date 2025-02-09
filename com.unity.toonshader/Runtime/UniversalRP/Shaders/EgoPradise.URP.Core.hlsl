@@ -41,11 +41,11 @@ float TryDitherClip(float4 positionWS, float4 positionCS)
 #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
 float4 GetShadowCoord(float3 positionWS, float4 positionCS)
 {
-    #if defined(_MAIN_LIGHT_SHADOWS_SCREEN) && !defined(_SURFACE_TYPE_TRANSPARENT)
+#if defined(_MAIN_LIGHT_SHADOWS_SCREEN) && !defined(_SURFACE_TYPE_TRANSPARENT)
     return ComputeScreenPos(positionCS);
-    #else
+#else
     return TransformWorldToShadowCoord(positionWS);
-    #endif
+#endif
 }
 #endif
 
